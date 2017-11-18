@@ -2,6 +2,8 @@
 
 ## Layout of the project
 
+## Usage
+
 ## Work to do
 1- Write the Read_plot_image file to check if able to reconstruct correctly an image without any information on it
 2- Develop a function "Image_roughness" which will be the initial condition for the roughness layer which will be read by the FDTD code.

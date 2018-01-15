@@ -1,3 +1,6 @@
+function [ I ] = Read_plot_image(  )
+% Read_plot_image Utility function to read an image into a convenient
+% format
 % Retrieve an image
 % Crop unecessary informations via an interactive tool
 clear; clc; close all;

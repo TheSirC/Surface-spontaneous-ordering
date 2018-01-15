@@ -246,6 +246,14 @@ if add_roughness_flag == 1
             roughness_function(end-(i - 1), :, :) = roughness_function_first_layer;
         end
         
+    %%%%%%%%%%%%%%%%%%%%%%%%%%
+    %   Loading Image Case   %
+    %%%%%%%%%%%%%%%%%%%%%%%%%%
+        
+    elseif roughness_type == 4
+        img = Read_plot_image(); % Reading image of the image
+        roughness_function = Image_roughness(img); % Converting the image in roughness layers
+        display(sprintf('Mean roughness of the surface=%f', mean_roughness));
     end
     if points_no_roughness_edge ~= 0
         roughness_function_first_layer(:, 1:points_no_roughness_edge) = no_rough_material;

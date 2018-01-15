@@ -1,5 +1,5 @@
 clear; clc; close all;
-working_dictionary = 'C:/Data/Theses_Postdocs/Stage_ludovic/Projet_RI_Chopineau/Code-FDTD'
+working_dictionary = '.'
 exci = '/save_temp/';
 load_pulse_num = 1; %%% which pulse to load
 total_pulse_num = 1; % 1 or 2 or more

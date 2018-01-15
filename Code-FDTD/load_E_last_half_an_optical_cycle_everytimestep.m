@@ -1,6 +1,5 @@
 clear; clc; close all;
-%working_dictionary='/Users/ludovic/Documents/MATLAB/Projet Recherche et Innovation/Version_Efield_time';
-working_dictionary = 'C:/Data/Theses_Postdocs/Stage_ludovic/Projet_RI_Chopineau/Code-FDTD'
+working_dictionary = '.'
 exci = '/save_temp/';
 margins_ = [-2, -3, -0.5, 0.1]; papersize_ = [18, 18 / 2^0.5]; font_size_ = 20; marker_size_ = 6; line_width_ = 0.5;
 load_pulse_num = 1; %%% which pulse to load

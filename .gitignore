@@ -26,3 +26,5 @@ octave-workspace
 
 # Simulink autosave extension
 *.autosave
+
+Code-FDTD/save_temp/

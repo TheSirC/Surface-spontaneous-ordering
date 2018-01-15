@@ -11,10 +11,20 @@
 
 clear; clc; close all
 
-%isOpen=matlabpool('size')>0;%%%  to check whether the worker pool is currently open:
-%if isOpen==0
-%    matlabpool local 4;
-%end
+%% Parallel pool checks
+parallel_computing = true; % Variable encoding the will for parallel computing
+
+if parallel_computing
+    poolobj = gcp('nocreate'); % If no pool, do not create new one.
+    if isempty(poolobj)
+        poolsize = 0;
+    else
+        poolsize = poolobj.NumWorkers;
+    end
+    if poolsize == 0
+        parpool('local', 4);
+    end
+end
 
 global COUNTER_T; %#ok<NUSED>
 
@@ -33,7 +43,7 @@ epsilon_0 = 8.85e-12; %%% vacuum permittivity F/m
 miu_0 = 4 * pi * 1.0e-7; %%% vacuum permeability H/m
 c_vacuum = 1 / sqrt(epsilon_0*miu_0); %%% speed of light in vacuum m/s
 
-working_dictionary = 'C:/Data/Theses_Postdocs/Projet_Claude_Alban/Projet_RI/Code-FDTD'
+working_dictionary = '.'
 margins_ = ((1920 * 1080) / (1920 * 1080)) * [-2, -1.8, -0.5, 0.1]; papersize_ = ((1920 * 1080) / (1920 * 1080)) * [20, 20 / 2^0.5]; font_size_ = 20; marker_size_ = 6; line_width_ = 0.5;
 see_fields_flag = 1; %%% see the Ex,Ey,Ez,Ex0,Ey0,Ez0 during the calculation or not
 substracting_source_flag = 0; %%% substrating the source in the fft

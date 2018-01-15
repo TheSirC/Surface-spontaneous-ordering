@@ -1,5 +1,6 @@
-% Prog to be developed
-
+% Retrieve an image
+% Crop unecessary informations via an interactive tool
+clear; clc; close all;
 [filename, pathname] = uigetfile( ...
     {'*.*', 'All Files (*.*)'}, ...
     'Pick a file');% Retrieve the filename and its path
@@ -12,17 +13,12 @@ if Iz > 3
 end
 
 % Remove the informations at bottom if necessary
+display(sprintf('Select the relevant part of the image'));
 Icut = imcrop(II);
-% Center the image % if Iy>Ix
-[Ix, Iy, Iz] = size(Icut);
-xymin = min(Ix, Iy);
-dif = (Iy - Ix);
-if dif <= 0 % Square image corner-case
-    dif = 1;
-end
-Ic = Icut(1:xymin, ceil(dif/2):ceil((Iy - dif)/2)-1, 1:Iz);
 if Iz >= 3 % non B&W image corner-case
-    J = rgb2gray(im2double(Ic));
+    J = rgb2gray(im2double(Icut));
+else
+    J = im2double(Icut);
 end
 I = J(end:-1:1, :) / max(max(J)); % normalize
 

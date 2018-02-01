@@ -1,4 +1,4 @@
-function [PixelWidth, PixelHeight] = getpixelsize(filename)
+function [PixelWidth, PixelHeight] = getpixelsize(filename, image)
 %getpixelsize  returns pixel width and height of MEB images.
 %   Images must be in TIFF format
 %   Open an image to retrieve its pixelsize if embedded in the file else
@@ -35,4 +35,26 @@ end
 if exist('PixelHeight', 'var') == 0
     PixelHeight = 0;
 end
+
+% Ask the user for the information
+if (PixelWidth == 0) || (PixelHeight == 0)
+    prompt = {'Enter the pixel width (in \mu m) :', 'Enter the pixel height (in \mu m):'};
+    dlg_title = 'Enter the pixel dimensions (leave zero if you want to choose a known interval)';
+    num_lines = 1;
+    defaultans = {'0', '0'};
+    options.Interpreter = 'tex';
+    options.Resize = 'on';
+    options.WindowStyle = 'normal';
+    answer = inputdlg(prompt, dlg_title, num_lines, defaultans, options);
+    PixelWidth = str2double(answer{1})*1e-6;
+    PixelHeight = str2double(answer{2})*1e-6;
+end
+
+% Fallback if the pixels width and height are still unknown
+if (PixelWidth == 0) || (PixelHeight == 0)
+    helpdlg('Select the pixels of a known length ', 'Select a known length');
+    pause(1);
+    [PixelWidth,PixelHeight] = getlengthpixels(image);
+end
+
 end

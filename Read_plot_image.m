@@ -6,7 +6,7 @@ function [ I ] = Read_plot_image(  )
 clear; clc; close all;
 [filename, pathname] = uigetfile( ...
     {'*.*', 'All Files (*.*)'}, ...
-    'Pick a file');% Retrieve the filename and its path
+    'Pick the image to analyze');% Retrieve the filename and its path
 MEB_name = strcat(pathname, filename);
 [II, ~] = imread(MEB_name);
 [~, ~, Iz] = size(II);
@@ -23,20 +23,11 @@ if Iz >= 3 % non B&W image corner-case
 else
     J = im2double(Icut);
 end
-I = J(end:-1:1, :) / max(max(J)); % normalize
+I = J(end:-1:1, :); % normalize
 
 % Reconstruction of real spatial scales
-[PixelWidth, PixelHeight] = getpixelsize(MEB_name);
-if (PixelWidth == 0) || (PixelHeight == 0)
-    prompt = {'Enter the pixel width (in \mu m) :', 'Enter the pixel height (in \mu m):'};
-    dlg_title = 'Enter the pixel heights';
-    num_lines = 1;
-    defaultans = {'1', '1'};
-    options.Interpreter = 'tex';
-    answer = inputdlg(prompt, dlg_title, num_lines, defaultans, options);
-    PixelWidth = str2double(answer{1});
-    PixelHeight = str2double(answer{2});
-end
+[PixelWidth, PixelHeight] = getpixelsize(MEB_name,I);
+
 [lig, col] = size(I);
 xx = linspace(-(col / 2)*PixelWidth, (col / 2)*PixelWidth, col);
 yy = linspace(-(lig / 2)*PixelHeight, (lig / 2)*PixelHeight, lig);

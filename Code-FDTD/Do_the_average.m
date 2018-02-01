@@ -1,5 +1,5 @@
 clear; clc; close all;
-working_dictionary = 'D:\PhD\my own\matlab code\FDTD\3D_FDTD_ripples_silicon\output_data\Tungsten\';
+working_dictionary = '.';
 margins_ = [-2, -3, -0.5, 0.1]; papersize_ = [18, 18 / 2^0.5]; font_size_ = 20; marker_size_ = 6; line_width_ = 0.5;
 total_average_num = 2;
 total_pulse_num = 2;

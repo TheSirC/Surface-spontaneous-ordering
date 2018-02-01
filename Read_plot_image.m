@@ -8,8 +8,8 @@ clear; clc; close all;
     {'*.*', 'All Files (*.*)'}, ...
     'Pick a file');% Retrieve the filename and its path
 MEB_name = strcat(pathname, filename);
-[II, map] = imread(MEB_name);
-[Ix, Iy, Iz] = size(II);
+[II, ~] = imread(MEB_name);
+[~, ~, Iz] = size(II);
 if Iz > 3
     Ip = II(:, :, 4); % Retrieve the depth map (?)
     II = II(:, :, 1:3);
@@ -25,7 +25,7 @@ else
 end
 I = J(end:-1:1, :) / max(max(J)); % normalize
 
-% Reconstruction des échelles spatiales
+% Reconstruction of real spatial scales
 [PixelWidth, PixelHeight] = getpixelsize(MEB_name);
 if (PixelWidth == 0) || (PixelHeight == 0)
     prompt = {'Enter the pixel width (in \mu m) :', 'Enter the pixel height (in \mu m):'};
@@ -42,7 +42,7 @@ xx = linspace(-(col / 2)*PixelWidth, (col / 2)*PixelWidth, col);
 yy = linspace(-(lig / 2)*PixelHeight, (lig / 2)*PixelHeight, lig);
 [X, Y] = meshgrid(xx*1.e6, yy*1.e6); % For graphics in µm
 
-
+% Display the cropped pictures
 Imlect = figure('Name', 'Image read', 'NumberTitle', 'off');
 pcolor(X, Y, I);
 colormap parula; shading interp; colorbar

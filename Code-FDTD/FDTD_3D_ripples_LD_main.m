@@ -81,7 +81,7 @@ rough_size = 1; %%% the size of a single roughness, measured in delta_x
 
 rough_thick = 2; %%% the thickness of the roughness layer, including the grating height, measured in delta_x
 base_thick = 8; %%% in the film where there is no roughness (for the first pulse)
-prepare_to_ablate_thick = 2; %%% curcial for 1 pulse before the recyle use of the film
+prepare_to_ablate_thick = 2; %%% crucial for 1 pulse before the recycle use of the film
 base_thick = base_thick + prepare_to_ablate_thick;
 grating_roughness_thick = 1; %%% the thickness of the random roughness on the top of the grating, measured in delta_x, 0 is no random roughness
 grating_period = 600e-9; %%% grating period

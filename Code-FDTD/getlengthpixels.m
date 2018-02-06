@@ -15,7 +15,7 @@ if (x(2) < x(1))
 end
 pixel_length = x(2) - x(1);
 
-prompt = {'Enter the length of the segment :'};
+prompt = {'Enter the length of the segment in \mu m:'};
 dlg_title = 'Enter the pixel dimensions';
 num_lines = 1;
 defaultans = {'1'};

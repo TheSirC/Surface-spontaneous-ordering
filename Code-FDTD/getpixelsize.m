@@ -38,22 +38,24 @@ end
 
 % Ask the user for the information
 if (PixelWidth == 0) || (PixelHeight == 0)
+    f=helpdlg('Enter the pixel dimensions (leave zero if you want to choose a known interval)');
+    waitfor(f);
     prompt = {'Enter the pixel width (in \mu m) :', 'Enter the pixel height (in \mu m):'};
-    dlg_title = 'Enter the pixel dimensions (leave zero if you want to choose a known interval)';
+	dlg_title = 'Pixels dimensions';
     num_lines = 1;
     defaultans = {'0', '0'};
     options.Interpreter = 'tex';
     options.Resize = 'on';
     options.WindowStyle = 'normal';
-    answer = inputdlg(prompt, dlg_title, num_lines, defaultans, options);
+    answer = inputdlg(prompt,dlg_title, num_lines, defaultans, options);
     PixelWidth = str2double(answer{1})*1e-6;
     PixelHeight = str2double(answer{2})*1e-6;
 end
 
 % Fallback if the pixels width and height are still unknown
 if (PixelWidth == 0) || (PixelHeight == 0)
-    helpdlg('Select the pixels of a known length ', 'Select a known length');
-    pause(1);
+    f=helpdlg('Select the pixels of a known length ', 'Select a known length');
+    waitfor(f);
     [PixelWidth,PixelHeight] = getlengthpixels(image);
 end
 

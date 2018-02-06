@@ -4,7 +4,7 @@ function [ roughness ] = Image_roughness( image, roughness_thickness )
 %   image is the transformed image retrieved from the MEB
 %   rougness_thickness is the amplitude of the 
 
-colormap = parula(roughness_thickness);
-roughness = dither(image,colormap,roughness_thickness,8);
+k = 255/(roughness_thickness-1);
+roughness = k*(round(im2uint8(image))./k)+1/2;
 
 end

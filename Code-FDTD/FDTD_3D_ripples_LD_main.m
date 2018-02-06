@@ -43,7 +43,7 @@ epsilon_0 = 8.85e-12; %%% vacuum permittivity F/m
 miu_0 = 4 * pi * 1.0e-7; %%% vacuum permeability H/m
 c_vacuum = 1 / sqrt(epsilon_0*miu_0); %%% speed of light in vacuum m/s
 
-working_dictionary = '.'
+working_dictionary = '.';
 margins_ = ((1920 * 1080) / (1920 * 1080)) * [-2, -1.8, -0.5, 0.1]; papersize_ = ((1920 * 1080) / (1920 * 1080)) * [20, 20 / 2^0.5]; font_size_ = 20; marker_size_ = 6; line_width_ = 0.5;
 see_fields_flag = 1; %%% see the Ex,Ey,Ez,Ex0,Ey0,Ez0 during the calculation or not
 substracting_source_flag = 0; %%% substrating the source in the fft
@@ -70,7 +70,7 @@ if refreshing_flag == 1
     Drude_LD_mode = 1;
 end
 
-roughness_type = 1; %%% 1-random roughness 2-gratings 3-Gaussian 4-Read image
+roughness_type = 4; %%% 1-random roughness 2-gratings 3-Gaussian 4-Read image
 
 
 %mean_rough=0.0001;%0.9999; %%% the mean of the roughness function
@@ -93,6 +93,11 @@ save_dnymics_flag = 0; %%% 1-save E0, N, Tc etc... once half an optical cycle, 0
 F_av = 0.2; %%% incident fluence J/cm^2
 Tao = 10e-15;
 
+if exist(roughness_dic, 'dir') == 0
+   mkdir(roughness_dic) 
+end
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%% Wavelength %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -100,7 +105,6 @@ lambda = 800e-9; %%% laser wavelength m %%%cc
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 laser_calculation_time = 3 * Tao;
-laser_calculation_time = 10e-15;
 T_simulation = Tao / 2;
 %T_simulation=2e-15;
 %see_depth=0;
@@ -659,7 +663,7 @@ for pulse_num = pulse_num_range
         m_1, m_k, Tao_c_l_0, N_cri_phonon, beta, theta_impact, n_2, refreshing_flag, gpu_flag, working_dictionary, ...
         save_dnymics_flag, single_precision_flag, diffusion_flag, pulse_num, Drude_LD_mode, see_depth_animation, see_fields_flag, write_avi_flag, sor_air_edge, record_field_flag, T_av, frequency_field_recording, position_recording);
     if pulse_num == 0
-        E_threshold = 1e-6 * max(max(E_ab(end-ablation_depth, :, :))) %%% J/cm^3, get the E_threshold using the simulation without roughness
+        E_threshold = 1e-6 * max(max(E_ab(end-ablation_depth, :, :))); %%% J/cm^3, get the E_threshold using the simulation without roughness
         save([working_dictionary, '/save_temp/E_threshold.mat'], 'E_threshold');
         %save([working_dictionary,'roughness_function_1stpulse'],'roughness_function');
     end
@@ -702,7 +706,7 @@ for pulse_num = pulse_num_range
         save([working_dictionary, '/save_temp/Ey_SI_record_xyzt_', num2str(pulse_num), '.mat'], 'Ey_SI_record_xyzt');
     end
 end
-cputime - t
+cputime = t
 
 %save([working_dictionary,'Ex_SI.mat'], 'Ex');
 %save([working_dictionary,'Ey_SI.mat'], 'Ey');

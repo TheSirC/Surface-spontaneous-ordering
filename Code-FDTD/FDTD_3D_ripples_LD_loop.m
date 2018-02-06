@@ -137,8 +137,7 @@ if add_roughness_flag == 1
         roughness_function = importdata([roughness_dic, 'roughness_function.mat']);
     elseif roughness_type == 2 && load_roughness_flag == 0
         mean_rough = mean_rough / rough_size^2;
-        roughness_function_first_layer = rand(N_points_y_main+1, N_points_z_main+1);
-        
+        roughness_function_first_layer = rand(N_points_y_main+1, N_points_z_main+1);    
         roughness_function_first_layer(roughness_function_first_layer <= (1 - mean_rough)) = 0;
         roughness_function_first_layer(roughness_function_first_layer > (1 - mean_rough)) = 1;
         [pos_0_y, pos_0_z] = find(roughness_function_first_layer <= (1 - mean_rough));
@@ -251,10 +250,15 @@ if add_roughness_flag == 1
     %%%%%%%%%%%%%%%%%%%%%%%%%%
         
     elseif roughness_type == 4
-        img = Read_plot_image(); % Reading image of the image
-        roughness_function = Image_roughness(img); % Converting the image in roughness layers
-        display(sprintf('Mean roughness of the surface=%f', mean_roughness));
+        img = Read_plot_image(); % Reading image from the MEB image
+        roughness_function = Image_roughness(img,8); % Converting the image in roughness layers
+        figure; 
+        subplot(1,3,1); imshow(img,[]);
+        subplot(1,3,2); imshow(roughness_function,[]);
+        subplot(1,3,3); imshow(im2double(roughness_function)-img,[]);
     end
+    
+    
     if points_no_roughness_edge ~= 0
         roughness_function_first_layer(:, 1:points_no_roughness_edge) = no_rough_material;
         roughness_function_first_layer(:, end-points_no_roughness_edge:end) = no_rough_material;

@@ -1,9 +1,11 @@
-function [ I ] = Read_plot_image(  )
+function [ I ] = Read_plot_image( computation_box_size_y,computation_box_size_z )
 % Read_plot_image Utility function to read an image into a convenient
 % format
 % Retrieve an image
 % Crop unecessary informations via an interactive tool
-clear; clc; close all;
+% Resize the image to computable image in case if it is too big
+
+clc; close all;
 [filename, pathname] = uigetfile( ...
     {'*.*', 'All Files (*.*)'}, ...
     'Pick the image to analyze');% Retrieve the filename and its path
@@ -27,6 +29,7 @@ I = J(end:-1:1, :); % normalize
 
 % Reconstruction of real spatial scales
 [PixelWidth, PixelHeight] = getpixelsize(MEB_name,I);
+I = checksize(I,computation_box_size_y,computation_box_size_z,PixelWidth, PixelHeight);
 
 [lig, col] = size(I);
 xx = linspace(-(col / 2)*PixelWidth, (col / 2)*PixelWidth, col);

@@ -250,7 +250,7 @@ if add_roughness_flag == 1
     %%%%%%%%%%%%%%%%%%%%%%%%%%
         
     elseif roughness_type == 4
-        img = Read_plot_image(); % Reading image from the MEB image
+        img = Read_plot_image(Y_dimension_main,Z_dimension_main); % Reading image from the MEB image
         roughness_function = Image_roughness(img,8); % Converting the image in roughness layers
         figure; 
         subplot(1,3,1); imshow(img,[]);
